@@ -10,27 +10,32 @@ import XCTest
 @testable import Cache
 
 class CacheTests: XCTestCase {
-    
+
+    var cache: Cache<String, Int>!
+
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        cache = Cache<String, Int>()
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+
+    func test_getStoredValue() {
+        cache.add(key: "0", value: 0)
+        XCTAssertEqual(cache.value(for: "0"), 0)
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+    func test_removesStoredValue() {
+        cache.add(key: "0", value: 0)
+        cache.remove(key: "0")
+        XCTAssertNil(cache.value(for: "0"))
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+
+    // how to specify eviction policy?
+    // how to specify size/cost constraints?
+    // how to specify creation call back for cache misses?
+    // how to specify cost function?
+    // how to work with implicit cost? 
+    // how to work without maximum cost/size?
+    // what if cost/size is irrelevant for eviction policy?
+    // how to specify dependent protocols, like cache delegate?
     
 }

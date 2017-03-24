@@ -10,6 +10,7 @@
 		5280D5481E850A6E00A852BA /* Cache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5280D53E1E850A6E00A852BA /* Cache.framework */; };
 		5280D54D1E850A6E00A852BA /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D54C1E850A6E00A852BA /* CacheTests.swift */; };
 		5280D54F1E850A6E00A852BA /* Cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280D5411E850A6E00A852BA /* Cache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5280D5591E850AA500A852BA /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5581E850AA500A852BA /* Cache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		5280D5471E850A6E00A852BA /* CacheTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CacheTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5280D54C1E850A6E00A852BA /* CacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTests.swift; sourceTree = "<group>"; };
 		5280D54E1E850A6E00A852BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5280D5581E850AA500A852BA /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				5280D5411E850A6E00A852BA /* Cache.h */,
 				5280D5421E850A6E00A852BA /* Info.plist */,
+				5280D5581E850AA500A852BA /* Cache.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 					5280D53D1E850A6E00A852BA = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = ZKYFFM476N;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					5280D5461E850A6E00A852BA = {
@@ -198,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5280D5591E850AA500A852BA /* Cache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +260,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -267,6 +273,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -302,6 +309,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -312,6 +320,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -322,6 +331,7 @@
 		5280D5531E850A6E00A852BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZKYFFM476N;
@@ -334,6 +344,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dmitrybespalov.Cache;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -341,6 +352,7 @@
 		5280D5541E850A6E00A852BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZKYFFM476N;
@@ -360,6 +372,7 @@
 		5280D5561E850A6E00A852BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = ZKYFFM476N;
 				INFOPLIST_FILE = CacheTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -372,6 +385,7 @@
 		5280D5571E850A6E00A852BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = ZKYFFM476N;
 				INFOPLIST_FILE = CacheTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
