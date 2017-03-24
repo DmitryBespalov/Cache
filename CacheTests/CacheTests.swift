@@ -11,13 +11,15 @@ import XCTest
 
 class CacheTests: XCTestCase {
 
-    var cache: Cache<String, Int, TestPolicy>!
+    var cache: Cache<String, Int, TestDelegate>!
     var policy: TestPolicy!
+    var delegate: TestDelegate!
 
     override func setUp() {
         super.setUp()
-        policy = TestPolicy()
-        cache = Cache<String, Int, TestPolicy>(evictionPolicy: policy)
+        delegate = TestDelegate()
+        policy = delegate.evictionPolicy
+        cache = Cache<String, Int, TestDelegate>(delegate: delegate)
     }
 
     func test_getStoredValue() {
@@ -56,9 +58,8 @@ class CacheTests: XCTestCase {
     func test_callsCreateCallback_whenCacheMissOccurs() {
         let exp = expectation(description: "Async")
         var result: Int?
-        cache.asyncValue(for: "0", createValue: { _ in
-            return 0
-        }, completion: {
+        delegate.createdValue = 0
+        cache.asyncValue(for: "0", completion: {
             result = $0
             exp.fulfill()
         })
@@ -69,11 +70,10 @@ class CacheTests: XCTestCase {
 
     func test_skipsCreateIfValueExists() {
         cache.add(key: "0", value: 0)
-        let exp = expectation(description: "Async")
         var result: Int?
-        cache.asyncValue(for: "0", createValue: { _ in
-            return 1
-        }, completion: {
+        delegate.createdValue = 1
+        let exp = expectation(description: "Async")
+        cache.asyncValue(for: "0", completion: {
             result = $0
             exp.fulfill()
         })
@@ -84,11 +84,10 @@ class CacheTests: XCTestCase {
 
     func test_whenCreatesValueAndHasSomethingToEvict_evictsValues() {
         policy.evictedKeys = ["removed"]
-        cache.add(key: "removed", value: 0)
+        cache.add(key: "removed", value: 1)
+        delegate.createdValue = 0
         let exp = expectation(description: "Async")
-        cache.asyncValue(for: "0", createValue: { _ in
-            return 0
-        }, completion: { _ in
+        cache.asyncValue(for: "0", completion: { _ in
             exp.fulfill()
         })
 
@@ -98,9 +97,8 @@ class CacheTests: XCTestCase {
 
     func test_whenCreatesValue_itStaysInCache() {
         let exp = expectation(description: "Async")
-        cache.asyncValue(for: "0", createValue: { _ in
-            return 0
-        }, completion: { _ in
+        delegate.createdValue = 0
+        cache.asyncValue(for: "0", completion: { _ in
             exp.fulfill()
         })
 

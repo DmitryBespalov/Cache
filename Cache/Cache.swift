@@ -8,15 +8,22 @@
 
 import Foundation
 
-final public class Cache<KeyType, ValueType, PolicyType>
-    where KeyType: Hashable, PolicyType: EvictionPolicy,
-        PolicyType.KeyType == KeyType, PolicyType.ValueType == ValueType {
+final public class Cache<KeyType, ValueType, DelegateType>
+    where KeyType: Hashable,
+          DelegateType: CacheDelegate,
+            DelegateType.KeyType == KeyType, DelegateType.ValueType == ValueType,
+          DelegateType.Policy: EvictionPolicy,
+            DelegateType.Policy.KeyType == KeyType, DelegateType.Policy.ValueType == ValueType {
 
     private var values: [KeyType: ValueType] = [:]
-    private var policy: PolicyType
+    private var policy: DelegateType.Policy
+    private weak var delegate: DelegateType!
+    public private (set) var hitCount: Int = 0
+    public private (set) var missCount: Int = 0
 
-    public init(evictionPolicy: PolicyType) {
-        policy = evictionPolicy
+    public init(delegate: DelegateType) {
+        self.delegate = delegate
+        policy = self.delegate.evictionPolicy
     }
 
     public func add(key: KeyType, value: ValueType) {
@@ -32,19 +39,26 @@ final public class Cache<KeyType, ValueType, PolicyType>
     }
 
     public func value(for key: KeyType) -> ValueType? {
-        return values[key]
+        let result = values[key]
+        if let _ = result {
+            hitCount = hitCount &+ 1
+        } else {
+            missCount = missCount &+ 1
+        }
+        return result
     }
 
-    public func asyncValue(for key: KeyType, createValue: (KeyType) -> ValueType?, completion: (ValueType?) -> Void) {
+    public func asyncValue(for key: KeyType, completion: @escaping (ValueType?) -> Void) {
         if let result = value(for: key) {
             completion(result)
             return
         }
-        let createdValue = createValue(key)
-        if let result = createdValue {
-            add(key: key, value: result)
+        delegate.createValue(for: key) { [weak self] (newValue: ValueType?) in
+            if let createdValue = newValue {
+                self?.add(key: key, value: createdValue)
+            }
+            completion(newValue)
         }
-        completion(createdValue)
     }
 
     public func remove(key: KeyType) {
