@@ -18,6 +18,9 @@
 		5280D56B1E851D1900A852BA /* Cache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5280D53E1E850A6E00A852BA /* Cache.framework */; };
 		5280D5721E8544CF00A852BA /* CacheDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5711E8544CF00A852BA /* CacheDelegate.swift */; };
 		5280D5741E8548AE00A852BA /* TestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5731E8548AE00A852BA /* TestDelegate.swift */; };
+		5280D5761E854C2800A852BA /* InstantCacheDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5751E854C2800A852BA /* InstantCacheDelegate.swift */; };
+		5280D57A1E854DEC00A852BA /* FifoEvictionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5791E854DEC00A852BA /* FifoEvictionPolicy.swift */; };
+		5280D57C1E854E3800A852BA /* FifoEvictionPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D57B1E854E3800A852BA /* FifoEvictionPolicyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		5280D56A1E851D1900A852BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5280D5711E8544CF00A852BA /* CacheDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheDelegate.swift; sourceTree = "<group>"; };
 		5280D5731E8548AE00A852BA /* TestDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDelegate.swift; sourceTree = "<group>"; };
+		5280D5751E854C2800A852BA /* InstantCacheDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstantCacheDelegate.swift; sourceTree = "<group>"; };
+		5280D5791E854DEC00A852BA /* FifoEvictionPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FifoEvictionPolicy.swift; sourceTree = "<group>"; };
+		5280D57B1E854E3800A852BA /* FifoEvictionPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FifoEvictionPolicyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,8 @@
 				5280D55E1E85125F00A852BA /* EvictionPolicy.swift */,
 				5280D5711E8544CF00A852BA /* CacheDelegate.swift */,
 				5280D5601E851C1900A852BA /* UnlimitedPolicy.swift */,
+				5280D5791E854DEC00A852BA /* FifoEvictionPolicy.swift */,
+				5280D5751E854C2800A852BA /* InstantCacheDelegate.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -119,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				5280D54C1E850A6E00A852BA /* CacheTests.swift */,
+				5280D57B1E854E3800A852BA /* FifoEvictionPolicyTests.swift */,
 				5280D55C1E8511FB00A852BA /* TestPolicy.swift */,
 				5280D5731E8548AE00A852BA /* TestDelegate.swift */,
 				5280D54E1E850A6E00A852BA /* Info.plist */,
@@ -281,7 +290,9 @@
 			files = (
 				5280D5591E850AA500A852BA /* Cache.swift in Sources */,
 				5280D5721E8544CF00A852BA /* CacheDelegate.swift in Sources */,
+				5280D5761E854C2800A852BA /* InstantCacheDelegate.swift in Sources */,
 				5280D55F1E85125F00A852BA /* EvictionPolicy.swift in Sources */,
+				5280D57A1E854DEC00A852BA /* FifoEvictionPolicy.swift in Sources */,
 				5280D5611E851C1900A852BA /* UnlimitedPolicy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5280D57C1E854E3800A852BA /* FifoEvictionPolicyTests.swift in Sources */,
 				5280D54D1E850A6E00A852BA /* CacheTests.swift in Sources */,
 				5280D55D1E8511FB00A852BA /* TestPolicy.swift in Sources */,
 				5280D5741E8548AE00A852BA /* TestDelegate.swift in Sources */,

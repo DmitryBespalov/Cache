@@ -105,32 +105,5 @@ class CacheTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
         XCTAssertEqual(cache.value(for: "0"), 0)
     }
-
-    // I'll make as few extra architecture as possible
-    // so that overall architecture as simple as needed
-    // API needs to be intuitive and easy to use
-
-    // how to specify eviction policy?
-    //  * enum
-    //  * class in constructor
-    // how to specify size/cost constraints?
-    //  * in constructor
-    //  * in property
-    //  * in eviction policy
-    // how to specify creation call back for cache misses?
-    //  * in constructor - one for all
-    //  * in getter - more flexible
-    //  * in delegate - also flexible
-    // how to specify cost function?
-    //  * constructor / property / delegate
-    // how to work with implicit cost? 
-    //  * have default function that has cost = 1 for each element
-    // how to work without maximum cost/size?
-    //  * do not evict at all
-    // what if cost/size is irrelevant for eviction policy?
-    //  * need concrete example to answer this.
-    // how to specify dependent protocols, like cache delegate?
-    //  * associated types
-    //  * but i want to make things as simple, as possible
     
 }
