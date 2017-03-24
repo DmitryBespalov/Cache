@@ -8,20 +8,29 @@
 
 import Foundation
 
-class Cache<KeyType, ValueType> {
+final class Cache<KeyType, ValueType, PolicyType> where KeyType: Hashable, PolicyType: EvictionPolicy, PolicyType.KeyType == KeyType, PolicyType.ValueType == ValueType {
 
-    private var value: ValueType?
+    private var values: [KeyType: ValueType] = [:]
+    private var policy: PolicyType
+
+    init(evictionPolicy: PolicyType) {
+        policy = evictionPolicy
+    }
 
     func add(key: KeyType, value: ValueType) {
-        self.value = value
+        let evictedKeys = policy.evictedKeys(for: key, value: value)
+        for evictedKey in evictedKeys {
+            remove(key: evictedKey)
+        }
+        values[key] = value
     }
 
     func value(for key: KeyType) -> ValueType? {
-        return value
+        return values[key]
     }
 
     func remove(key: KeyType) {
-        self.value = nil
+        values[key] = nil
     }
 
 }
