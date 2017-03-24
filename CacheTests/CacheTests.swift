@@ -52,7 +52,62 @@ class CacheTests: XCTestCase {
         XCTAssertNil(cache.value(for: "removed2"))
         XCTAssertEqual(cache.value(for: "new"), 1)
     }
-    
+
+    func test_callsCreateCallback_whenCacheMissOccurs() {
+        let exp = expectation(description: "Async")
+        var result: Int?
+        cache.asyncValue(for: "0", createValue: { _ in
+            return 0
+        }, completion: {
+            result = $0
+            exp.fulfill()
+        })
+
+        waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(result, 0)
+    }
+
+    func test_skipsCreateIfValueExists() {
+        cache.add(key: "0", value: 0)
+        let exp = expectation(description: "Async")
+        var result: Int?
+        cache.asyncValue(for: "0", createValue: { _ in
+            return 1
+        }, completion: {
+            result = $0
+            exp.fulfill()
+        })
+
+        waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(result, 0)
+    }
+
+    func test_whenCreatesValueAndHasSomethingToEvict_evictsValues() {
+        policy.evictedKeys = ["removed"]
+        cache.add(key: "removed", value: 0)
+        let exp = expectation(description: "Async")
+        cache.asyncValue(for: "0", createValue: { _ in
+            return 0
+        }, completion: { _ in
+            exp.fulfill()
+        })
+
+        waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertNil(cache.value(for: "removed"))
+    }
+
+    func test_whenCreatesValue_itStaysInCache() {
+        let exp = expectation(description: "Async")
+        cache.asyncValue(for: "0", createValue: { _ in
+            return 0
+        }, completion: { _ in
+            exp.fulfill()
+        })
+
+        waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(cache.value(for: "0"), 0)
+    }
+
     // I'll make as few extra architecture as possible
     // so that overall architecture as simple as needed
     // API needs to be intuitive and easy to use

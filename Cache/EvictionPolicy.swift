@@ -8,9 +8,8 @@
 
 import Foundation
 
-protocol EvictionPolicy {
+public protocol EvictionPolicy {
     associatedtype KeyType
     associatedtype ValueType
     func evictedKeys(for key: KeyType, value: ValueType) -> [KeyType]
-
 }
