@@ -9,65 +9,42 @@
 import XCTest
 @testable import Cache
 
-class CacheIntegrationTests: XCTestCase, CacheDelegate {
-
-    typealias KeyType = String
-    typealias ValueType = Int
-    typealias Policy = UnlimitedPolicy<String, Int>
+class CacheIntegrationTests: XCTestCase {
 
     class Server {
 
-        func loadValue(for key: String, completion: @escaping (_ value: Int?) -> Void) {
+        func loadValue(for key: Int, completion: @escaping (_ value: Int?) -> Void) {
             DispatchQueue.global().async {
                 sleep(1)
                 DispatchQueue.main.async {
-                    completion(Int(key))
+                    completion(key)
                 }
             }
         }
 
     }
 
-    var server: Server!
-    var cache: Cache<String, Int, CacheIntegrationTests>!
+    let server = Server()
 
-    override func setUp() {
-        super.setUp()
-        server = Server()
-        cache = Cache<String, Int, CacheIntegrationTests>(delegate: self)
-    }
+    func test_fifo() {
+        let policy: ReplacementPolicy<Int, Int> = FifoReplacementPolicy<Int, Int>(maxCost: 5)
+        let cache = Cache<Int, Int>(policy: policy, calculateCost: { _ in 1 })
 
-    // MARK - CacheDelegate
-    var evictionPolicy = UnlimitedPolicy<String, Int>()
-
-    func createValue(for key: String, completion: @escaping (Int?) -> Void) {
-        server.loadValue(for: key, completion: completion)
-    }
-
-    // MARK - Tests
-
-    func test_integrationWithNetworkMock() {
-        let expectedCacheMissCount = 10 + 10 + 5
-        let expectedCacheHitCount = 5
-        for keyBase in (0..<10) {
-            let key = String(keyBase)
-            XCTAssertNil(cache.value(for: key))
-            let exp = expectation(description: key)
-            cache.asyncValue(for: key) { result in
+        for key in (0..<10) {
+            let exp = expectation(description: "exp\(key)")
+            cache.fetchValue(for: key, create: { key, completion in
+                self.server.loadValue(for: key, completion: completion)
+            }, completion: { _ in
                 exp.fulfill()
-            }
+            })
         }
         waitForExpectations(timeout: 5, handler: nil)
-        for keyBase in (0..<5) {
-            let key = String(keyBase)
-            XCTAssertEqual(cache.value(for: key), keyBase)
+
+        for key in (0..<10).reversed() {
+            let _ = cache.value(for: key)
         }
-        for keyBase in (10..<15) {
-            let key = String(keyBase)
-            XCTAssertNil(cache.value(for: key))
-        }
-        XCTAssertEqual(cache.hitCount, expectedCacheHitCount)
-        XCTAssertEqual(cache.missCount, expectedCacheMissCount)
+        XCTAssertEqual(cache.hitCount, 5)
+        XCTAssertEqual(cache.missCount, 10 + 5)
     }
-    
+
 }

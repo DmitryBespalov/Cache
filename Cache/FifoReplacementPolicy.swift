@@ -1,5 +1,5 @@
 //
-//  FifoEvictionPolicy.swift
+//  FifoReplacementPolicy.swift
 //  Cache
 //
 //  Created by Dmitry Bespalov on 24/03/17.
@@ -8,37 +8,37 @@
 
 import Foundation
 
-func identityCostFunction<ValueType>(_ value: ValueType) -> Int {
-    return 1
-}
+class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyType, ValueType> where KeyType: Hashable {
 
-class FifoEvictionPolicy<KeyType, ValueType>: EvictionPolicy
-    where KeyType: Hashable {
-
-    private let costLimit: Int
-    private let costFunction: (ValueType) -> Int
-    private var keys: [KeyType] = []
+    private let maxCost: Int
     private var totalCost: Int = 0
+    private var keys: [KeyType] = []
     private var costs: [KeyType: Int] = [:]
 
-    init(costLimit: Int, costFunction: ((ValueType) -> Int)?) {
-        self.costLimit = costLimit
-        self.costFunction = costFunction ?? identityCostFunction
+    init(maxCost: Int) {
+        assert(maxCost >= 0)
+        self.maxCost = maxCost
     }
 
-    func evictedKeys(for newKey: KeyType, value: ValueType) -> [KeyType] {
-        if costLimit == 0 {
+    override func evictedKeysForAdded(key: KeyType, cost: Int) -> [KeyType] {
+        if maxCost == 0 {
             return []
         }
         var evicted = [KeyType]()
-        let cost = costFunction(value)
-        while totalCost + cost > costLimit && !keys.isEmpty {
+        while totalCost + cost > maxCost && !keys.isEmpty {
             if let oldKey = pop() {
                 evicted.append(oldKey)
             }
         }
-        push(key: newKey, cost: cost)
+        push(key: key, cost: cost)
         return evicted
+    }
+
+    override func remove(key: KeyType) {
+        if let index = keys.index(of: key) {
+            keys.remove(at: index)
+        }
+        costs[key] = nil
     }
 
     private func push(key: KeyType, cost: Int) {
@@ -55,4 +55,5 @@ class FifoEvictionPolicy<KeyType, ValueType>: EvictionPolicy
         totalCost -= costs[key] ?? 0
         return key
     }
+
 }

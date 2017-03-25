@@ -9,13 +9,16 @@
 import Foundation
 @testable import Cache
 
-class TestPolicy: EvictionPolicy {
+class TestPolicy<KeyType, ValueType>: ReplacementPolicy<KeyType, ValueType> {
 
-    typealias KeyType = String
-    typealias ValueType = Int
-    var evictedKeys: [String] = []
+    var evictedKeys: [KeyType] = []
 
-    func evictedKeys(for key: String, value: Int) -> [String] {
+    override func evictedKeysForAdded(key: KeyType, cost: Int) -> [KeyType] {
         return evictedKeys
     }
+
+    override func remove(key: KeyType) {
+        
+    }
+    
 }

@@ -8,34 +8,24 @@
 
 import Foundation
 
-final public class Cache<KeyType, ValueType, DelegateType>
-    where KeyType: Hashable,
-          DelegateType: CacheDelegate,
-            DelegateType.KeyType == KeyType, DelegateType.ValueType == ValueType,
-          DelegateType.Policy: EvictionPolicy,
-            DelegateType.Policy.KeyType == KeyType, DelegateType.Policy.ValueType == ValueType {
+final public class Cache<KeyType, ValueType> where KeyType: Hashable {
 
-    private var values: [KeyType: ValueType] = [:]
-    private var policy: DelegateType.Policy
-    private weak var delegate: DelegateType!
     public private (set) var hitCount: Int = 0
     public private (set) var missCount: Int = 0
+    private var values: [KeyType: ValueType] = [:]
+    private let policy: ReplacementPolicy<KeyType, ValueType>
+    private let calculateCost: (ValueType) -> Int
 
-    public init(delegate: DelegateType) {
-        self.delegate = delegate
-        policy = self.delegate.evictionPolicy
+    public init(policy: ReplacementPolicy<KeyType, ValueType>, calculateCost: @escaping (ValueType) -> Int) {
+        self.policy = policy
+        self.calculateCost = calculateCost
     }
 
-    public func add(key: KeyType, value: ValueType) {
-        evict(for: key, value: value)
-        values[key] = value
-    }
-
-    private func evict(for key: KeyType, value: ValueType) {
-        let evictedKeys = policy.evictedKeys(for: key, value: value)
-        for evictedKey in evictedKeys {
-            remove(key: evictedKey)
+    public func add(value: ValueType, for key: KeyType) {
+        for evictedKey in policy.evictedKeysForAdded(key: key, cost: calculateCost(value)) {
+            removeValue(for: evictedKey)
         }
+        values[key] = value
     }
 
     public func value(for key: KeyType) -> ValueType? {
@@ -48,20 +38,23 @@ final public class Cache<KeyType, ValueType, DelegateType>
         return result
     }
 
-    public func asyncValue(for key: KeyType, completion: @escaping (ValueType?) -> Void) {
+    public func fetchValue(for key: KeyType,
+                           create: (KeyType, @escaping (ValueType?) -> Void) -> Void,
+                           completion: @escaping (ValueType?) -> Void) {
         if let result = value(for: key) {
             completion(result)
             return
         }
-        delegate.createValue(for: key) { [weak self] (newValue: ValueType?) in
+        create(key) { [weak self] (newValue: ValueType?) in
             if let createdValue = newValue {
-                self?.add(key: key, value: createdValue)
+                self?.add(value: createdValue, for: key)
             }
             completion(newValue)
         }
     }
 
-    public func remove(key: KeyType) {
+    public func removeValue(for key: KeyType) {
+        policy.remove(key: key)
         values[key] = nil
     }
 
