@@ -8,19 +8,19 @@
 
 import Foundation
 
-class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyType, ValueType> where KeyType: Hashable {
+public class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyType, ValueType> where KeyType: Hashable {
 
     private let maxCost: Int
     private var totalCost: Int = 0
     private var keys: [KeyType] = []
     private var costs: [KeyType: Int] = [:]
 
-    init(maxCost: Int) {
+    public init(maxCost: Int) {
         assert(maxCost >= 0)
         self.maxCost = maxCost
     }
 
-    override func evictedKeysForAdded(key: KeyType, cost: Int) -> [KeyType] {
+    override public func evictedKeysForAdded(key: KeyType, cost: Int) -> [KeyType] {
         if maxCost == 0 {
             return []
         }
@@ -34,7 +34,7 @@ class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyType, Valu
         return evicted
     }
 
-    override func remove(key: KeyType) {
+    override public func remove(key: KeyType) {
         if let index = keys.index(of: key) {
             keys.remove(at: index)
         }
