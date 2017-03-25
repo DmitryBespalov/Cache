@@ -12,7 +12,7 @@ public class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyTyp
 
     private let maxCost: Int
     private var totalCost: Int = 0
-    private var keys: [KeyType] = []
+    var keys: [KeyType] = []
     private var costs: [KeyType: Int] = [:]
 
     public init(maxCost: Int) {
@@ -44,6 +44,10 @@ public class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyTyp
     private func push(key: KeyType, cost: Int) {
         totalCost += cost
         costs[key] = cost
+        pushKey(key: key)
+    }
+
+    func pushKey(key: KeyType) {
         keys.append(key)
     }
 
@@ -51,9 +55,13 @@ public class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyTyp
         if keys.isEmpty {
             return nil
         }
-        let key = keys.removeFirst()
+        let key = popKey()
         totalCost -= costs[key] ?? 0
         return key
+    }
+
+    func popKey() -> KeyType {
+        return keys.removeFirst()
     }
 
 }
