@@ -16,7 +16,7 @@ class CacheTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        policy = TestPolicy<String>()
+        policy = TestPolicy<String>(maxCost: 0)
         cache = Cache<String, Int>(policy: policy, calculateCost: CostFunction.calculateMemorySize)
     }
 

@@ -9,7 +9,7 @@
 import Foundation
 @testable import Cache
 
-class TestPolicy<KeyType>: ReplacementPolicy<KeyType> {
+class TestPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: Hashable {
 
     var evictedKeys: [KeyType] = []
 
@@ -20,5 +20,5 @@ class TestPolicy<KeyType>: ReplacementPolicy<KeyType> {
     override func remove(key: KeyType) {
         
     }
-    
+
 }

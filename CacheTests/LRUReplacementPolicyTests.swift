@@ -46,10 +46,16 @@ class LRUReplacementPolicyTests: XCTestCase {
         XCTAssertEqual(policy.evictedKeysForAdded(key: 2, cost: 1), [])
     }
 
-
     func test_evictWithHugeCost() {
         let policy = LRUReplacementPolicy<Int>(maxCost: 1)
         XCTAssertEqual(policy.evictedKeysForAdded(key: 0, cost: 2), [])
         XCTAssertEqual(policy.evictedKeysForAdded(key: 1, cost: 2), [0])
     }
+
+    func test_doesNotEvicts_whenMaxCostZero() {
+        let policy = LRUReplacementPolicy<Int>(maxCost: 0)
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 0, cost: 2), [])
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 1, cost: 2), [])
+    }
+
 }

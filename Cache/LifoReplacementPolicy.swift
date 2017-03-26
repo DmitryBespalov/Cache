@@ -10,11 +10,7 @@ import Foundation
 
 public class LifoReplacementPolicy<KeyType>: FifoReplacementPolicy<KeyType> where KeyType: Hashable {
 
-    override func pushKey(key: KeyType) {
-        keys.append(key)
-    }
-
-    override func popKey() -> KeyType {
+    override func removeKey() -> KeyType {
         return keys.removeLast()
     }
     
