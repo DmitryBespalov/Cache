@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		522B01421E87CDF400C3D0A0 /* BinaryHeapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522B01411E87CDF400C3D0A0 /* BinaryHeapTests.swift */; };
+		522B01441E87CDFF00C3D0A0 /* BinaryHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522B01431E87CDFF00C3D0A0 /* BinaryHeap.swift */; };
 		5280D5481E850A6E00A852BA /* Cache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5280D53E1E850A6E00A852BA /* Cache.framework */; };
 		5280D54D1E850A6E00A852BA /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D54C1E850A6E00A852BA /* CacheTests.swift */; };
 		5280D54F1E850A6E00A852BA /* Cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280D5411E850A6E00A852BA /* Cache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -19,6 +21,8 @@
 		5280D57E1E86B48E00A852BA /* TestPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D57D1E86B48E00A852BA /* TestPolicy.swift */; };
 		5280D5801E86BD4E00A852BA /* LifoReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D57F1E86BD4E00A852BA /* LifoReplacementPolicyTests.swift */; };
 		5280D5821E86BDDB00A852BA /* LifoReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5811E86BDDB00A852BA /* LifoReplacementPolicy.swift */; };
+		5280D5841E86BEF500A852BA /* LRUReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5831E86BEF500A852BA /* LRUReplacementPolicy.swift */; };
+		5280D5861E86BF0700A852BA /* LRUReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5851E86BF0700A852BA /* LRUReplacementPolicyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		522B01411E87CDF400C3D0A0 /* BinaryHeapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryHeapTests.swift; sourceTree = "<group>"; };
+		522B01431E87CDFF00C3D0A0 /* BinaryHeap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryHeap.swift; sourceTree = "<group>"; };
 		5280D53E1E850A6E00A852BA /* Cache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5280D5411E850A6E00A852BA /* Cache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
 		5280D5421E850A6E00A852BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,6 +61,8 @@
 		5280D57D1E86B48E00A852BA /* TestPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPolicy.swift; sourceTree = "<group>"; };
 		5280D57F1E86BD4E00A852BA /* LifoReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifoReplacementPolicyTests.swift; sourceTree = "<group>"; };
 		5280D5811E86BDDB00A852BA /* LifoReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifoReplacementPolicy.swift; sourceTree = "<group>"; };
+		5280D5831E86BEF500A852BA /* LRUReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUReplacementPolicy.swift; sourceTree = "<group>"; };
+		5280D5851E86BF0700A852BA /* LRUReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUReplacementPolicyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +121,8 @@
 				5280D55E1E85125F00A852BA /* ReplacementPolicy.swift */,
 				5280D5791E854DEC00A852BA /* FifoReplacementPolicy.swift */,
 				5280D5811E86BDDB00A852BA /* LifoReplacementPolicy.swift */,
+				5280D5831E86BEF500A852BA /* LRUReplacementPolicy.swift */,
+				522B01431E87CDFF00C3D0A0 /* BinaryHeap.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -124,6 +134,8 @@
 				5280D57D1E86B48E00A852BA /* TestPolicy.swift */,
 				5280D57B1E854E3800A852BA /* FifoReplacementPolicyTests.swift */,
 				5280D57F1E86BD4E00A852BA /* LifoReplacementPolicyTests.swift */,
+				5280D5851E86BF0700A852BA /* LRUReplacementPolicyTests.swift */,
+				522B01411E87CDF400C3D0A0 /* BinaryHeapTests.swift */,
 				5280D54E1E850A6E00A852BA /* Info.plist */,
 			);
 			path = CacheTests;
@@ -282,7 +294,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				522B01441E87CDFF00C3D0A0 /* BinaryHeap.swift in Sources */,
 				5280D5821E86BDDB00A852BA /* LifoReplacementPolicy.swift in Sources */,
+				5280D5841E86BEF500A852BA /* LRUReplacementPolicy.swift in Sources */,
 				5280D5591E850AA500A852BA /* Cache.swift in Sources */,
 				5280D55F1E85125F00A852BA /* ReplacementPolicy.swift in Sources */,
 				5280D57A1E854DEC00A852BA /* FifoReplacementPolicy.swift in Sources */,
@@ -295,7 +309,9 @@
 			files = (
 				5280D5801E86BD4E00A852BA /* LifoReplacementPolicyTests.swift in Sources */,
 				5280D57C1E854E3800A852BA /* FifoReplacementPolicyTests.swift in Sources */,
+				522B01421E87CDF400C3D0A0 /* BinaryHeapTests.swift in Sources */,
 				5280D54D1E850A6E00A852BA /* CacheTests.swift in Sources */,
+				5280D5861E86BF0700A852BA /* LRUReplacementPolicyTests.swift in Sources */,
 				5280D57E1E86B48E00A852BA /* TestPolicy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,6 +553,7 @@
 				5280D5541E850A6E00A852BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5280D5551E850A6E00A852BA /* Build configuration list for PBXNativeTarget "CacheTests" */ = {
 			isa = XCConfigurationList;
@@ -545,6 +562,7 @@
 				5280D5571E850A6E00A852BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5280D56E1E851D1900A852BA /* Build configuration list for PBXNativeTarget "CacheIntegrationTests" */ = {
 			isa = XCConfigurationList;
@@ -553,6 +571,7 @@
 				5280D5701E851D1900A852BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
