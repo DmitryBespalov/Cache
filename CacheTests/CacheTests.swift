@@ -12,11 +12,11 @@ import XCTest
 class CacheTests: XCTestCase {
 
     var cache: Cache<String, Int>!
-    var policy: TestPolicy<String, Int>!
+    var policy: TestPolicy<String>!
 
     override func setUp() {
         super.setUp()
-        policy = TestPolicy<String, Int>()
+        policy = TestPolicy<String>()
         cache = Cache<String, Int>(policy: policy, calculateCost: CostFunction.calculateMemorySize)
     }
 

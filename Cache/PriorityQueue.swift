@@ -8,14 +8,24 @@
 
 import Foundation
 
+private struct Entry<ValueType>: Hashable where ValueType: Hashable {
+    var priority: Int
+    var value: ValueType
+    var hashValue: Int { return value.hashValue }
+
+    public static func ==(lhs: Entry, rhs: Entry) -> Bool {
+        return lhs.value == rhs.value
+    }
+}
+
+
 /// Minimum Priority queue with binary heap implementation
-struct PriorityQueue<ValueType> {
+struct PriorityQueue<ValueType> where ValueType: Hashable {
 
-    private typealias Entry = (priority: Int, value: ValueType)
-    private var entries = [Entry]()
-    private var count: Int { return entries.count }
-    private var isEmpty: Bool { return entries.isEmpty }
+    private var entries = [Entry<ValueType>]()
 
+    var isEmpty: Bool { return entries.isEmpty }
+    var count: Int { return entries.count }
     /// Returns the element with the smallest priority
     var minimum: ValueType? {
         return entries.first?.value
@@ -28,13 +38,34 @@ struct PriorityQueue<ValueType> {
     }
 
     /// Removes and returns the element with the smallest priority
-    mutating func extractMin() -> ValueType? {
-        if isEmpty {
-            return nil
-        }
+    mutating func extractMin() -> ValueType {
+        assert(!isEmpty)
         let result = removeFirst()
         minHeapify(at: 0)
         return result
+    }
+
+    mutating func updatePriority(for payload: ValueType, to newPriority: Int) {
+        guard let index = index(of: payload) else { return }
+        let oldPriority = priority(index)
+        if newPriority > oldPriority {
+            setPriority(at: index, to: newPriority)
+            minHeapify(at: index)
+        } else {
+            decreasePriority(at: index, to: newPriority)
+        }
+    }
+
+    private func index(of payload: ValueType) -> Int? {
+        return entries.index(of: Entry(priority: 0, value: payload))
+    }
+
+    mutating func remove(_ payload: ValueType) {
+        guard let index = index(of: payload) else { return }
+        entries.remove(at: index)
+        if index < count {
+            minHeapify(at: index)
+        }
     }
 
     private mutating func removeFirst() -> ValueType {
@@ -84,11 +115,11 @@ struct PriorityQueue<ValueType> {
     }
 
     private mutating func add(_ priority: Int, _ payload: ValueType) {
-        entries.append((priority, payload))
+        entries.append(Entry(priority: priority, value: payload))
     }
 
     private func parent(of index: Int) -> Int {
-        let result = Int(ceil(Double(index) / 2 - 1))
+        let result = (index - 1) / 2
         return max(0, result)
     }
 

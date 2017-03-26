@@ -27,7 +27,7 @@ class CacheIntegrationTests: XCTestCase {
     let server = Server()
 
     func test_fifo() {
-        let policy: ReplacementPolicy<Int, Int> = FifoReplacementPolicy<Int, Int>(maxCost: 5)
+        let policy: ReplacementPolicy<Int> = FifoReplacementPolicy<Int>(maxCost: 5)
         let cache = Cache<Int, Int>(policy: policy, calculateCost: { _ in 1 })
 
         for key in (0..<10) {

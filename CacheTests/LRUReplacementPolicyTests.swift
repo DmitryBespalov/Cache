@@ -11,9 +11,45 @@ import XCTest
 
 class LRUReplacementPolicyTests: XCTestCase {
 
-    // least recently used 
-    // each entry has aging counter
-    // on each use, we update list of keys
-    // and then pop the one with the oldest age -- with the minimum age
-    
+    func test_createSimple() {
+        let policy = LRUReplacementPolicy<Int>(maxCost: 1)
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 0, cost: 1), [])
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 1, cost: 1), [0])
+    }
+
+    func test_whenTwoElements_evictsLeastUsed() {
+        let policy = LRUReplacementPolicy<Int>(maxCost: 2)
+        let _ = policy.evictedKeysForAdded(key: 0, cost: 1)
+        let _ = policy.evictedKeysForAdded(key: 1, cost: 1)
+
+        policy.cacheHit(for: 0)
+
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 2, cost: 1), [1])
+    }
+
+    func test_withFourElements() {
+        let policy = LRUReplacementPolicy<Int>(maxCost: 4)
+        let _ = policy.evictedKeysForAdded(key: 0, cost: 1)
+        let _ = policy.evictedKeysForAdded(key: 1, cost: 1)
+        let _ = policy.evictedKeysForAdded(key: 2, cost: 1)
+        let _ = policy.evictedKeysForAdded(key: 3, cost: 1)
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 4, cost: 1), [0])
+        policy.cacheHit(for: 3)
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 5, cost: 1), [1])
+    }
+
+    func test_removesElement() {
+        let policy = LRUReplacementPolicy<Int>(maxCost: 1)
+        let _ = policy.evictedKeysForAdded(key: 0, cost: 1)
+        let _ = policy.evictedKeysForAdded(key: 1, cost: 1)
+        policy.remove(key: 1)
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 2, cost: 1), [])
+    }
+
+
+    func test_evictWithHugeCost() {
+        let policy = LRUReplacementPolicy<Int>(maxCost: 1)
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 0, cost: 2), [])
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 1, cost: 2), [0])
+    }
 }

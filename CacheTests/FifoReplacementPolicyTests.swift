@@ -11,10 +11,10 @@ import XCTest
 
 class FifoReplacementPolicyTests: XCTestCase {
 
-    var policy: ReplacementPolicy<Int, Int>!
+    var policy: ReplacementPolicy<Int>!
 
     private func createPolicy(maxCost: Int) {
-        policy = FifoReplacementPolicy<Int, Int>(maxCost: maxCost)
+        policy = FifoReplacementPolicy<Int>(maxCost: maxCost)
     }
 
     private func evictedKeys(for key: Int, value: Int, cost: Int = 1) -> [Int] {

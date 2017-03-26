@@ -13,10 +13,10 @@ final public class Cache<KeyType, ValueType> where KeyType: Hashable {
     public private (set) var hitCount: Int = 0
     public private (set) var missCount: Int = 0
     private var values: [KeyType: ValueType] = [:]
-    private let policy: ReplacementPolicy<KeyType, ValueType>
+    private let policy: ReplacementPolicy<KeyType>
     private let calculateCost: (ValueType) -> Int
 
-    public init(policy: ReplacementPolicy<KeyType, ValueType>, calculateCost: @escaping (ValueType) -> Int) {
+    public init(policy: ReplacementPolicy<KeyType>, calculateCost: @escaping (ValueType) -> Int) {
         self.policy = policy
         self.calculateCost = calculateCost
     }
@@ -32,6 +32,7 @@ final public class Cache<KeyType, ValueType> where KeyType: Hashable {
         let result = values[key]
         if let _ = result {
             hitCount = hitCount &+ 1
+            policy.cacheHit(for: key)
         } else {
             missCount = missCount &+ 1
         }

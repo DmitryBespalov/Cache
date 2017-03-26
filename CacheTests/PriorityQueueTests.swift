@@ -26,10 +26,6 @@ class PriorityQueueTests: XCTestCase {
         XCTAssertEqual(queue.minimum, 0)
     }
 
-    func test_extractMin() {
-        XCTAssertNil(queue.extractMin())
-    }
-
     func test_twoElements() {
         insert(1)
         insert(0)
@@ -56,5 +52,30 @@ class PriorityQueueTests: XCTestCase {
         insert(2)
         XCTAssertEqual(queue.extractMin(), 0)
         XCTAssertEqual(queue.minimum, 1)
+    }
+
+    func test_updatePriorityToBigger_changesMinimum() {
+        insert(0)
+        insert(1)
+        queue.updatePriority(for: 0, to: 2)
+        XCTAssertEqual(queue.minimum, 1)
+    }
+
+    func test_updatePriorityToSmaller_changesMinimum() {
+        insert(0)
+        insert(1)
+        insert(2)
+        insert(3)
+        queue.updatePriority(for: 3, to: -1)
+        XCTAssertEqual(queue.minimum, 3)
+    }
+
+    func test_remove_deletesValueFromQueue() {
+        insert(0)
+        insert(1)
+        insert(2)
+        queue.remove(0)
+        queue.remove(1)
+        XCTAssertEqual(queue.minimum, 2)
     }
 }

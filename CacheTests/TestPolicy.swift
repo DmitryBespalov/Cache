@@ -9,7 +9,7 @@
 import Foundation
 @testable import Cache
 
-class TestPolicy<KeyType, ValueType>: ReplacementPolicy<KeyType, ValueType> {
+class TestPolicy<KeyType>: ReplacementPolicy<KeyType> {
 
     var evictedKeys: [KeyType] = []
 

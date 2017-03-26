@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyType, ValueType> where KeyType: Hashable {
+public class FifoReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: Hashable {
 
     private let maxCost: Int
     private var totalCost: Int = 0
@@ -26,9 +26,7 @@ public class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyTyp
         }
         var evicted = [KeyType]()
         while totalCost + cost > maxCost && !keys.isEmpty {
-            if let oldKey = pop() {
-                evicted.append(oldKey)
-            }
+            evicted.append(pop())
         }
         push(key: key, cost: cost)
         return evicted
@@ -38,7 +36,7 @@ public class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyTyp
         if let index = keys.index(of: key) {
             keys.remove(at: index)
         }
-        costs[key] = nil
+        totalCost -= costs.removeValue(forKey: key) ?? 0
     }
 
     private func push(key: KeyType, cost: Int) {
@@ -47,19 +45,19 @@ public class FifoReplacementPolicy<KeyType, ValueType>: ReplacementPolicy<KeyTyp
         pushKey(key: key)
     }
 
+    // available for override
     func pushKey(key: KeyType) {
         keys.append(key)
     }
 
-    private func pop() -> KeyType? {
-        if keys.isEmpty {
-            return nil
-        }
+    private func pop() -> KeyType {
+        assert(!keys.isEmpty)
         let key = popKey()
         totalCost -= costs[key] ?? 0
         return key
     }
 
+    // available for override
     func popKey() -> KeyType {
         return keys.removeFirst()
     }

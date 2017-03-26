@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class LifoReplacementPolicy<KeyType, ValueType>: FifoReplacementPolicy<KeyType, ValueType> where KeyType: Hashable {
+public class LifoReplacementPolicy<KeyType>: FifoReplacementPolicy<KeyType> where KeyType: Hashable {
 
     override func pushKey(key: KeyType) {
         keys.append(key)

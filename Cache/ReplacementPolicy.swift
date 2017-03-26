@@ -15,13 +15,17 @@ public class CostFunction<ValueType> {
     }
 }
 
-public class ReplacementPolicy<KeyType, ValueType> {
+public class ReplacementPolicy<KeyType> {
 
     public func evictedKeysForAdded(key: KeyType, cost: Int) -> [KeyType] {
         return []
     }
 
     public func remove(key: KeyType) {
+        
+    }
+
+    public func cacheHit(for key: KeyType) {
         
     }
 
