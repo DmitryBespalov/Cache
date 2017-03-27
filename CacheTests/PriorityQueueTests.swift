@@ -13,8 +13,8 @@ class PriorityQueueTests: XCTestCase {
 
     var queue = PriorityQueue<Int>()
 
-    func test_minimum() {
-        XCTAssertNil(queue.minimum)
+    func test_peek() {
+        XCTAssertNil(queue.peek)
     }
 
     private func insert(_ value: Int) {
@@ -23,51 +23,51 @@ class PriorityQueueTests: XCTestCase {
 
     func test_oneElement() {
         insert(0)
-        XCTAssertEqual(queue.minimum, 0)
+        XCTAssertEqual(queue.peek, 0)
     }
 
     func test_twoElements() {
         insert(1)
         insert(0)
-        XCTAssertEqual(queue.minimum, 0)
+        XCTAssertEqual(queue.peek, 0)
     }
 
     func test_manyElements() {
         for i in (0..<10).reversed() {
             insert(i)
         }
-        XCTAssertEqual(queue.minimum, 0)
+        XCTAssertEqual(queue.peek, 0)
     }
 
-    func test_whenTwoElements_extractMinReturnsMinimum() {
+    func test_whenTwoElements_dequeueReturnspeek() {
         insert(1)
         insert(0)
-        XCTAssertEqual(queue.extractMin(), 0)
+        XCTAssertEqual(queue.dequeue(), 0)
     }
 
-    func test_whenManyelements_extractMinLeavesHeapPropertyCorrect() {
+    func test_whenManyelements_dequeueLeavesHeapPropertyCorrect() {
         insert(3)
         insert(1)
         insert(0)
         insert(2)
-        XCTAssertEqual(queue.extractMin(), 0)
-        XCTAssertEqual(queue.minimum, 1)
+        XCTAssertEqual(queue.dequeue(), 0)
+        XCTAssertEqual(queue.peek, 1)
     }
 
-    func test_updatePriorityToBigger_changesMinimum() {
+    func test_updatePriorityToBigger_changespeek() {
         insert(0)
         insert(1)
         queue.updatePriority(for: 0, to: 2)
-        XCTAssertEqual(queue.minimum, 1)
+        XCTAssertEqual(queue.peek, 1)
     }
 
-    func test_updatePriorityToSmaller_changesMinimum() {
+    func test_updatePriorityToSmaller_changespeek() {
         insert(0)
         insert(1)
         insert(2)
         insert(3)
         queue.updatePriority(for: 3, to: -1)
-        XCTAssertEqual(queue.minimum, 3)
+        XCTAssertEqual(queue.peek, 3)
     }
 
     func test_remove_deletesValueFromQueue() {
@@ -76,6 +76,6 @@ class PriorityQueueTests: XCTestCase {
         insert(2)
         queue.remove(0)
         queue.remove(1)
-        XCTAssertEqual(queue.minimum, 2)
+        XCTAssertEqual(queue.peek, 2)
     }
 }

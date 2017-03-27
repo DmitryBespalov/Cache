@@ -27,13 +27,14 @@ public class ReplacementPolicy<KeyType> where KeyType: Hashable {
         self.maxCost = maxCost
     }
 
-    public func evictedKeysForAdded(key: KeyType, cost: Int) -> [KeyType] {
+    // NOTE: If you don't override this method, you have to override removeKey()
+    public func evictedKeysForAdded(key newKey: KeyType, cost newCost: Int) -> [KeyType] {
         guard maxCost > 0 else { return [] }
         var evicted = [KeyType]()
-        while totalCost + cost > maxCost && !costs.isEmpty {
+        while totalCost + newCost > maxCost && !costs.isEmpty {
             evicted.append(evictKey())
         }
-        add(key, cost: cost)
+        add(newKey, cost: newCost)
         return evicted
     }
 

@@ -12,7 +12,7 @@ import Foundation
 class LRUReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: Hashable {
 
     private var age: Int = 0
-    private var recencies = PriorityQueue<KeyType>()
+    var recencies = PriorityQueue<KeyType>()
 
     override func add(_ key: KeyType, cost: Int) {
         super.add(key, cost: cost)
@@ -21,7 +21,7 @@ class LRUReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: H
     }
 
     override func removeKey() -> KeyType {
-        return recencies.extractMin()
+        return recencies.dequeue()
     }
 
     override func cacheHit(for key: KeyType) {
