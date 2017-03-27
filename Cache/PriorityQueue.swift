@@ -36,6 +36,7 @@ struct PriorityQueue<ValueType> where ValueType: Hashable {
     var peek: ValueType? {
         return entries.first?.value
     }
+    // Complexity O(n logn)
     var type: PriorityQueueType = .minimum {
         didSet {
             switch type {
@@ -44,7 +45,9 @@ struct PriorityQueue<ValueType> where ValueType: Hashable {
             case .maximum:
                 isOrderedBefore = { $0 > $1 }
             }
-            removeAll()
+            for i in (0..<(count - 1)/2).reversed() {
+                heapify(at: i)
+            }
         }
     }
     private var entries = [Entry<ValueType>]()
@@ -64,6 +67,8 @@ struct PriorityQueue<ValueType> where ValueType: Hashable {
         return result
     }
 
+    /// Worst-case complexity is O(n), but since Foundation.Array of Hashable values is 
+    /// not an array underneath, but more like a tree, the complexity should be O(log n).
     mutating func updatePriority(for payload: ValueType, to newPriority: Int) {
         guard let index = index(of: payload) else { return }
         let oldPriority = priority(index)
@@ -79,6 +84,7 @@ struct PriorityQueue<ValueType> where ValueType: Hashable {
         return entries.index(of: Entry(priority: 0, value: payload))
     }
 
+    /// Same here, most probably complexity will be O(log n), but in worst case is O(n)
     mutating func remove(_ payload: ValueType) {
         guard let index = index(of: payload) else { return }
         entries.remove(at: index)

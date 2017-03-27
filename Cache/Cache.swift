@@ -12,6 +12,7 @@ final public class Cache<KeyType, ValueType> where KeyType: Hashable {
 
     public private (set) var hitCount: Int = 0
     public private (set) var missCount: Int = 0
+    public var count: Int { return values.count }
     private var values: [KeyType: ValueType] = [:]
     private let policy: ReplacementPolicy<KeyType>
     private let calculateCost: (ValueType) -> Int

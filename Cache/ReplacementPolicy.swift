@@ -18,7 +18,7 @@ public class CostFunction<ValueType> {
 
 public class ReplacementPolicy<KeyType> where KeyType: Hashable {
 
-    private let maxCost: Int
+    let maxCost: Int
     private var totalCost: Int = 0
     private var costs: [KeyType: Int] = [:]
 

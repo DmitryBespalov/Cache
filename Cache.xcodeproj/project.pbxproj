@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5221C5871E89266900F75389 /* MRUReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221C5861E89266900F75389 /* MRUReplacementPolicy.swift */; };
 		5221C5891E8926B700F75389 /* MRUReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221C5881E8926B700F75389 /* MRUReplacementPolicyTests.swift */; };
+		5221C58B1E892A4F00F75389 /* RReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221C58A1E892A4F00F75389 /* RReplacementPolicyTests.swift */; };
+		5221C58D1E892AB000F75389 /* RReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221C58C1E892AB000F75389 /* RReplacementPolicy.swift */; };
 		522B01421E87CDF400C3D0A0 /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522B01411E87CDF400C3D0A0 /* PriorityQueueTests.swift */; };
 		522B01441E87CDFF00C3D0A0 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522B01431E87CDFF00C3D0A0 /* PriorityQueue.swift */; };
 		522F7D891E883E86004EF664 /* ReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D55E1E85125F00A852BA /* ReplacementPolicy.swift */; };
@@ -47,6 +49,8 @@
 /* Begin PBXFileReference section */
 		5221C5861E89266900F75389 /* MRUReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRUReplacementPolicy.swift; sourceTree = "<group>"; };
 		5221C5881E8926B700F75389 /* MRUReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRUReplacementPolicyTests.swift; sourceTree = "<group>"; };
+		5221C58A1E892A4F00F75389 /* RReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RReplacementPolicyTests.swift; sourceTree = "<group>"; };
+		5221C58C1E892AB000F75389 /* RReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RReplacementPolicy.swift; sourceTree = "<group>"; };
 		522B01411E87CDF400C3D0A0 /* PriorityQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueueTests.swift; sourceTree = "<group>"; };
 		522B01431E87CDFF00C3D0A0 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PriorityQueue.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		5280D53E1E850A6E00A852BA /* Cache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +131,7 @@
 				5280D5811E86BDDB00A852BA /* LifoReplacementPolicy.swift */,
 				5280D5831E86BEF500A852BA /* LRUReplacementPolicy.swift */,
 				5221C5861E89266900F75389 /* MRUReplacementPolicy.swift */,
+				5221C58C1E892AB000F75389 /* RReplacementPolicy.swift */,
 				522B01431E87CDFF00C3D0A0 /* PriorityQueue.swift */,
 			);
 			path = Cache;
@@ -141,6 +146,7 @@
 				5280D57F1E86BD4E00A852BA /* LifoReplacementPolicyTests.swift */,
 				5280D5851E86BF0700A852BA /* LRUReplacementPolicyTests.swift */,
 				5221C5881E8926B700F75389 /* MRUReplacementPolicyTests.swift */,
+				5221C58A1E892A4F00F75389 /* RReplacementPolicyTests.swift */,
 				522B01411E87CDF400C3D0A0 /* PriorityQueueTests.swift */,
 				5280D54E1E850A6E00A852BA /* Info.plist */,
 			);
@@ -300,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5221C58D1E892AB000F75389 /* RReplacementPolicy.swift in Sources */,
 				5221C5871E89266900F75389 /* MRUReplacementPolicy.swift in Sources */,
 				522F7D891E883E86004EF664 /* ReplacementPolicy.swift in Sources */,
 				522B01441E87CDFF00C3D0A0 /* PriorityQueue.swift in Sources */,
@@ -314,6 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5221C58B1E892A4F00F75389 /* RReplacementPolicyTests.swift in Sources */,
 				5280D5801E86BD4E00A852BA /* LifoReplacementPolicyTests.swift in Sources */,
 				5280D57C1E854E3800A852BA /* FifoReplacementPolicyTests.swift in Sources */,
 				522B01421E87CDF400C3D0A0 /* PriorityQueueTests.swift in Sources */,

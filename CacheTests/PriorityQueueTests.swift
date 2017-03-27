@@ -78,4 +78,18 @@ class PriorityQueueTests: XCTestCase {
         queue.remove(1)
         XCTAssertEqual(queue.peek, 2)
     }
+
+    func test_whenQueueChangingType_elementsAreResorted() {
+        insert(0)
+        insert(1)
+        insert(2)
+        insert(3)
+        insert(4)
+        queue.type = .maximum
+        XCTAssertEqual(queue.dequeue(), 4)
+        XCTAssertEqual(queue.dequeue(), 3)
+        XCTAssertEqual(queue.dequeue(), 2)
+        XCTAssertEqual(queue.dequeue(), 1)
+        XCTAssertEqual(queue.dequeue(), 0)
+    }
 }
