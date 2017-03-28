@@ -62,4 +62,8 @@ public class ReplacementPolicy<KeyType> where KeyType: Hashable {
         fatalError("\(#function): This method must be overriden")
     }
 
+    func cost(of key: KeyType) -> Int {
+        return costs[key] ?? 0
+    }
+
 }
