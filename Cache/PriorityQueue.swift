@@ -67,6 +67,13 @@ struct PriorityQueue<ValueType> where ValueType: Hashable {
         return result
     }
 
+    mutating func dequeueWithPriority() -> (ValueType, Int) {
+        assert(!isEmpty)
+        let result = entries.removeFirst()
+        heapify(at: 0)
+        return (result.value, result.priority)
+    }
+
     /// Worst-case complexity is O(n), but since Foundation.Array of Hashable values is 
     /// not an array underneath, but more like a tree, the complexity should be O(log n).
     mutating func updatePriority(for payload: ValueType, to newPriority: Int) {
@@ -80,17 +87,22 @@ struct PriorityQueue<ValueType> where ValueType: Hashable {
         }
     }
 
+    func contains(_ payload: ValueType) -> Bool {
+        return entries.contains(Entry<ValueType>(priority: 0, value: payload))
+    }
+
     private func index(of payload: ValueType) -> Int? {
         return entries.index(of: Entry(priority: 0, value: payload))
     }
 
     /// Same here, most probably complexity will be O(log n), but in worst case is O(n)
-    mutating func remove(_ payload: ValueType) {
-        guard let index = index(of: payload) else { return }
+    mutating func remove(_ payload: ValueType) -> ValueType? {
+        guard let index = index(of: payload) else { return nil }
         entries.remove(at: index)
         if index < count {
             heapify(at: index)
         }
+        return payload
     }
 
     mutating func removeAll() {

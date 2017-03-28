@@ -74,8 +74,8 @@ class PriorityQueueTests: XCTestCase {
         insert(0)
         insert(1)
         insert(2)
-        queue.remove(0)
-        queue.remove(1)
+        let _ = queue.remove(0)
+        let _ = queue.remove(1)
         XCTAssertEqual(queue.peek, 2)
     }
 

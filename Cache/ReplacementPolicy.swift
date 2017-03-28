@@ -19,8 +19,8 @@ public class CostFunction<ValueType> {
 public class ReplacementPolicy<KeyType> where KeyType: Hashable {
 
     let maxCost: Int
-    private var totalCost: Int = 0
-    private var costs: [KeyType: Int] = [:]
+    var totalCost: Int = 0
+    var costs: [KeyType: Int] = [:]
 
     public init(maxCost: Int) {
         assert(maxCost >= 0)
@@ -38,6 +38,15 @@ public class ReplacementPolicy<KeyType> where KeyType: Hashable {
         return evicted
     }
 
+    public func remove(key: KeyType) {
+        guard maxCost > 0 else { return }
+        totalCost -= costs.removeValue(forKey: key) ?? 0
+    }
+
+    public func cacheHit(for key: KeyType) {
+    }
+
+    /// Called on cache miss
     func add(_ key: KeyType, cost: Int) {
         costs[key] = cost
         totalCost += cost
@@ -51,14 +60,6 @@ public class ReplacementPolicy<KeyType> where KeyType: Hashable {
 
     func removeKey() -> KeyType {
         fatalError("\(#function): This method must be overriden")
-    }
-
-    public func remove(key: KeyType) {
-        guard maxCost > 0 else { return }
-        totalCost -= costs.removeValue(forKey: key) ?? 0
-    }
-
-    public func cacheHit(for key: KeyType) {
     }
 
 }

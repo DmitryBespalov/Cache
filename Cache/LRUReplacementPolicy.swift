@@ -32,7 +32,7 @@ class LRUReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: H
 
     override func remove(key: KeyType) {
         super.remove(key: key)
-        recencies.remove(key)
+        let _ = recencies.remove(key)
     }
 
 }
