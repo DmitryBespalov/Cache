@@ -21,7 +21,7 @@ import Foundation
 /// When cache size exceeds the threshold, least recently used items are evicted from unreferenced list, then
 /// least recently used items are evicted from referenced list.
 /// 
-/// You need to specify proportion between size of reference and unreferenced lists.
+/// You need to specify proportion between size of referenced and unreferenced lists.
 class SLRUReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: Hashable {
 
     let maxReferencedCost: Int

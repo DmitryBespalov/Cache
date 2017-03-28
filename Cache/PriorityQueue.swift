@@ -151,6 +151,13 @@ struct PriorityQueue<ValueType> where ValueType: Hashable {
         return entries[index].priority
     }
 
+    func priority(for key: ValueType) -> Int? {
+        if let index = index(of: key) {
+            return priority(index)
+        }
+        return nil
+    }
+
     private mutating func setPriority(at index: Int, to value: Int) {
         entries[index].priority = value
     }
