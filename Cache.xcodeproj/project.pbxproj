@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		520C49131E8A812D00A4AE95 /* LFUReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C49121E8A812D00A4AE95 /* LFUReplacementPolicy.swift */; };
 		520C49151E8A815F00A4AE95 /* LFUReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C49141E8A815F00A4AE95 /* LFUReplacementPolicyTests.swift */; };
+		520C49171E8A8B9000A4AE95 /* ARCReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C49161E8A8B9000A4AE95 /* ARCReplacementPolicy.swift */; };
 		5221C5871E89266900F75389 /* MRUReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221C5861E89266900F75389 /* MRUReplacementPolicy.swift */; };
 		5221C5891E8926B700F75389 /* MRUReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221C5881E8926B700F75389 /* MRUReplacementPolicyTests.swift */; };
 		5221C58B1E892A4F00F75389 /* RReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221C58A1E892A4F00F75389 /* RReplacementPolicyTests.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		520C49121E8A812D00A4AE95 /* LFUReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFUReplacementPolicy.swift; sourceTree = "<group>"; };
 		520C49141E8A815F00A4AE95 /* LFUReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFUReplacementPolicyTests.swift; sourceTree = "<group>"; };
+		520C49161E8A8B9000A4AE95 /* ARCReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCReplacementPolicy.swift; sourceTree = "<group>"; };
 		5221C5861E89266900F75389 /* MRUReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRUReplacementPolicy.swift; sourceTree = "<group>"; };
 		5221C5881E8926B700F75389 /* MRUReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRUReplacementPolicyTests.swift; sourceTree = "<group>"; };
 		5221C58A1E892A4F00F75389 /* RReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RReplacementPolicyTests.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				5221C58C1E892AB000F75389 /* RReplacementPolicy.swift */,
 				5221C58E1E8948BC00F75389 /* SLRUReplacementPolicy.swift */,
 				520C49121E8A812D00A4AE95 /* LFUReplacementPolicy.swift */,
+				520C49161E8A8B9000A4AE95 /* ARCReplacementPolicy.swift */,
 				522B01431E87CDFF00C3D0A0 /* PriorityQueue.swift */,
 			);
 			path = Cache;
@@ -327,6 +330,7 @@
 				5280D5821E86BDDB00A852BA /* LifoReplacementPolicy.swift in Sources */,
 				5280D5841E86BEF500A852BA /* LRUReplacementPolicy.swift in Sources */,
 				5280D5591E850AA500A852BA /* Cache.swift in Sources */,
+				520C49171E8A8B9000A4AE95 /* ARCReplacementPolicy.swift in Sources */,
 				5280D57A1E854DEC00A852BA /* FifoReplacementPolicy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
