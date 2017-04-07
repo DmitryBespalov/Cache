@@ -32,6 +32,7 @@
 		5280D5821E86BDDB00A852BA /* LifoReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5811E86BDDB00A852BA /* LifoReplacementPolicy.swift */; };
 		5280D5841E86BEF500A852BA /* LRUReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5831E86BEF500A852BA /* LRUReplacementPolicy.swift */; };
 		5280D5861E86BF0700A852BA /* LRUReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5851E86BF0700A852BA /* LRUReplacementPolicyTests.swift */; };
+		6D1553C11E977ABA00414D6A /* ARCReplacmenetPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1553C01E977ABA00414D6A /* ARCReplacmenetPolicyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		5280D5811E86BDDB00A852BA /* LifoReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifoReplacementPolicy.swift; sourceTree = "<group>"; };
 		5280D5831E86BEF500A852BA /* LRUReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUReplacementPolicy.swift; sourceTree = "<group>"; };
 		5280D5851E86BF0700A852BA /* LRUReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUReplacementPolicyTests.swift; sourceTree = "<group>"; };
+		6D1553C01E977ABA00414D6A /* ARCReplacmenetPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCReplacmenetPolicyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				522B01411E87CDF400C3D0A0 /* PriorityQueueTests.swift */,
 				5221C5901E894B3400F75389 /* SLRUReplacementPolicyTests.swift */,
 				520C49141E8A815F00A4AE95 /* LFUReplacementPolicyTests.swift */,
+				6D1553C01E977ABA00414D6A /* ARCReplacmenetPolicyTests.swift */,
 				5280D54E1E850A6E00A852BA /* Info.plist */,
 			);
 			path = CacheTests;
@@ -346,6 +349,7 @@
 				522B01421E87CDF400C3D0A0 /* PriorityQueueTests.swift in Sources */,
 				5221C5891E8926B700F75389 /* MRUReplacementPolicyTests.swift in Sources */,
 				5221C5911E894B3400F75389 /* SLRUReplacementPolicyTests.swift in Sources */,
+				6D1553C11E977ABA00414D6A /* ARCReplacmenetPolicyTests.swift in Sources */,
 				5280D54D1E850A6E00A852BA /* CacheTests.swift in Sources */,
 				5280D5861E86BF0700A852BA /* LRUReplacementPolicyTests.swift in Sources */,
 				522F7D8B1E883F4C004EF664 /* TestPolicy.swift in Sources */,
