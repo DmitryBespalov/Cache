@@ -10,11 +10,11 @@ Currently implemented:
   * Random replacement
   * Segmented least recently used
   * Least frequently used
+  * Adaptive replacement cache
 
 On the list:
 
   * Low inter-reference recency set
-  * Adaptive replacement cache
   * Second chance
   * Clock
   * Clock with adaptive replacement
