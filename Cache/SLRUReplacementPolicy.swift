@@ -24,15 +24,19 @@ import Foundation
 /// You need to specify proportion between size of referenced and unreferenced lists.
 class SLRUReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: Hashable {
 
-    let maxReferencedCost: Int
-    var referencedSegment = PriorityQueue<KeyType>()
-    var unreferencedSegment = PriorityQueue<KeyType>()
+    var referencedItems = CostPriorityQueue<KeyType>()
+    var unreferencedItems = CostPriorityQueue<KeyType>()
     var age = 0
-    var totalReferencedCost = 0
+
+    override var totalCost: Int {
+        get { return referencedItems.totalCost + unreferencedItems.totalCost }
+        set { fatalError("Trying to set totalCost") }
+    }
 
     init(maxCost: Int, referencedSegmentFraction: Double) {
         assert(0 <= referencedSegmentFraction && referencedSegmentFraction <= 1)
-        maxReferencedCost = Int(Double(maxCost) * referencedSegmentFraction)
+        referencedItems.maxCost = Int(Double(maxCost) * referencedSegmentFraction)
+        unreferencedItems.maxCost = maxCost - referencedItems.maxCost
         super.init(maxCost: maxCost)
     }
 
@@ -41,23 +45,18 @@ class SLRUReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: 
         let evicted = evictedUnreferencedKeys(for: newCost) + evictedReferencedKeys(for: newCost)
         add(newKey, cost: newCost)
         assert(totalCost <= maxCost)
-        assert(totalReferencedCost <= maxReferencedCost)
         return evicted
     }
 
     override func add(_ key: KeyType, cost: Int) {
-        unreferencedSegment.insert(key, priority: age)
+        unreferencedItems.insert(key, priority: age, cost: cost)
         age += 1
-        totalCost += cost
-        costs[key] = cost
     }
 
     private func evictedUnreferencedKeys(for newCost: Int) -> [KeyType] {
         var evicted = [KeyType]()
-        while totalCost - totalReferencedCost + newCost > maxCost - maxReferencedCost && !unreferencedSegment.isEmpty {
-            let evictedKey = unreferencedSegment.dequeue()
-            let evictedCost = costs.removeValue(forKey: evictedKey) ?? 0
-            totalCost -= evictedCost
+        while unreferencedItems.shouldDequeueForAdding(cost: newCost) {
+            let (evictedKey, _, _) = unreferencedItems.dequeue()
             evicted.append(evictedKey)
         }
         return evicted
@@ -65,44 +64,36 @@ class SLRUReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: 
 
     private func evictedReferencedKeys(for newCost: Int) -> [KeyType] {
         var evicted = [KeyType]()
-        while totalCost + newCost > maxCost && !referencedSegment.isEmpty {
-            let evictedKey = referencedSegment.dequeue()
-            let evictedCost = costs.removeValue(forKey: evictedKey) ?? 0
-            totalCost -= evictedCost
-            totalReferencedCost -= evictedCost
+        while totalCost + newCost > maxCost && !referencedItems.isEmpty {
+            let (evictedKey, _, _) = referencedItems.dequeue()
             evicted.append(evictedKey)
         }
         return evicted
     }
 
     override func cacheHit(for key: KeyType) {
-        if let hitKey = unreferencedSegment.remove(key) {
-            moveLeastRecentReferencedKeysToUnreferencedSegmentForReplacement(with: hitKey)
-            referencedSegment.insert(hitKey, priority: age)
-            totalReferencedCost += cost(of: hitKey)
+        if let (hitKey, hitCost) = unreferencedItems.remove(key) {
+            moveLeastRecentReferencedKeysToUnreferencedSegmentForReplacement(with: hitKey, cost: hitCost)
+            referencedItems.insert(hitKey, priority: age, cost: hitCost)
             assert(totalCost <= maxCost)
-            assert(totalReferencedCost <= maxReferencedCost)
         } else {
-            referencedSegment.updatePriority(for: key, to: age)
+            referencedItems.updatePriority(for: key, to: age)
         }
         age += 1
     }
 
-    private func moveLeastRecentReferencedKeysToUnreferencedSegmentForReplacement(with hitKey: KeyType) {
-        while totalReferencedCost + cost(of: hitKey) > maxReferencedCost && !referencedSegment.isEmpty {
-            let forcedKey: (key: KeyType, priority: Int) = referencedSegment.dequeueWithPriority()
-            let forcedCost = cost(of: forcedKey.key)
-            totalReferencedCost -= forcedCost
-            unreferencedSegment.insert(forcedKey.key, priority: forcedKey.priority)
+    private func moveLeastRecentReferencedKeysToUnreferencedSegmentForReplacement(with hitKey: KeyType, cost hitCost: Int) {
+        while referencedItems.shouldDequeueForAdding(cost: hitCost) {
+            let (key, priority, cost) = referencedItems.dequeue()
+            unreferencedItems.insert(key, priority: priority, cost: cost)
         }
     }
 
     override func remove(key: KeyType) {
-        super.remove(key: key)
-        if referencedSegment.contains(key) {
-            let _ = referencedSegment.remove(key)
-        } else if unreferencedSegment.contains(key) {
-            let _ = unreferencedSegment.remove(key)
+        if unreferencedItems.contains(key) {
+            let _ = unreferencedItems.remove(key)
+        } else if referencedItems.contains(key) {
+            let _ = referencedItems.remove(key)
         }
     }
 

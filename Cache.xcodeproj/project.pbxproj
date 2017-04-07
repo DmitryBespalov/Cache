@@ -33,6 +33,7 @@
 		5280D5841E86BEF500A852BA /* LRUReplacementPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5831E86BEF500A852BA /* LRUReplacementPolicy.swift */; };
 		5280D5861E86BF0700A852BA /* LRUReplacementPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280D5851E86BF0700A852BA /* LRUReplacementPolicyTests.swift */; };
 		6D1553C11E977ABA00414D6A /* ARCReplacmenetPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1553C01E977ABA00414D6A /* ARCReplacmenetPolicyTests.swift */; };
+		6D1553C31E979B9800414D6A /* CostPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1553C21E979B9800414D6A /* CostPriorityQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		5280D5831E86BEF500A852BA /* LRUReplacementPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUReplacementPolicy.swift; sourceTree = "<group>"; };
 		5280D5851E86BF0700A852BA /* LRUReplacementPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUReplacementPolicyTests.swift; sourceTree = "<group>"; };
 		6D1553C01E977ABA00414D6A /* ARCReplacmenetPolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCReplacmenetPolicyTests.swift; sourceTree = "<group>"; };
+		6D1553C21E979B9800414D6A /* CostPriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CostPriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 				5221C58E1E8948BC00F75389 /* SLRUReplacementPolicy.swift */,
 				520C49121E8A812D00A4AE95 /* LFUReplacementPolicy.swift */,
 				520C49161E8A8B9000A4AE95 /* ARCReplacementPolicy.swift */,
+				6D1553C21E979B9800414D6A /* CostPriorityQueue.swift */,
 				522B01431E87CDFF00C3D0A0 /* PriorityQueue.swift */,
 			);
 			path = Cache;
@@ -330,6 +333,7 @@
 				5221C5871E89266900F75389 /* MRUReplacementPolicy.swift in Sources */,
 				522F7D891E883E86004EF664 /* ReplacementPolicy.swift in Sources */,
 				522B01441E87CDFF00C3D0A0 /* PriorityQueue.swift in Sources */,
+				6D1553C31E979B9800414D6A /* CostPriorityQueue.swift in Sources */,
 				5280D5821E86BDDB00A852BA /* LifoReplacementPolicy.swift in Sources */,
 				5280D5841E86BEF500A852BA /* LRUReplacementPolicy.swift in Sources */,
 				5280D5591E850AA500A852BA /* Cache.swift in Sources */,

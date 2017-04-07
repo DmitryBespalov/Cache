@@ -76,5 +76,19 @@ class ARCReplacementPolicyTests: XCTestCase {
         XCTAssertEqual(policy.evictedKeysForAdded(key: 2, cost: 2).sorted(), [0, 1])
     }
 
+    func test_ghostListForRecentItems() {
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 0, cost: 1), [])
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 1, cost: 1), [0])
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 0, cost: 1), [])
+    }
+
+    func test_ghostListForFrequentItems() {
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 0, cost: 1), [])
+        policy.cacheHit(for: 0)
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 1, cost: 1), [])
+        policy.cacheHit(for: 1)
+        policy.cacheHit(for: 0)
+        XCTAssertEqual(policy.evictedKeysForAdded(key: 2, cost: 1), [1])
+    }
 
 }

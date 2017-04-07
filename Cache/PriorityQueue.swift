@@ -29,7 +29,6 @@ enum PriorityQueueType {
 /// Minimum/Maximum Priority queue with binary heap implementation
 struct PriorityQueue<ValueType> where ValueType: Hashable {
 
-
     var isEmpty: Bool { return entries.isEmpty }
     var count: Int { return entries.count }
     /// Returns the element with the top priority
