@@ -39,6 +39,7 @@ class ARCReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: H
         if ghostRecentItems.contains(newKey) {
             recentItems.maxCost += newCost
             frequentItems.maxCost -= newCost
+            let _ = ghostRecentItems.remove(newKey)
         }
         let evicted = evictedRecentItems(forCost: newCost) + evictedFrequentItems(forCost: newCost)
         recentItems.insert(newKey, priority: age, cost: newCost)
@@ -80,6 +81,7 @@ class ARCReplacementPolicy<KeyType>: ReplacementPolicy<KeyType> where KeyType: H
             if ghostFrequentItems.contains(item) {
                 frequentItems.maxCost += cost
                 recentItems.maxCost -= cost
+                ghostFrequentItems.remove(item)
             }
             moveFrequentItemsToRecentItems(forCost: cost)
             frequentItems.insert(item, priority: age, cost: cost)
